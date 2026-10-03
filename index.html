@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KartTime Reader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div><b>KART</b><span>TIME</span></div>
+    <small>Live timing → kart ranking</small>
+  </div>
+  <div id="status" class="status offline">Niet verbonden</div>
+</header>
+
+<main>
+  <section class="connect card">
+    <div class="title-row">
+      <div>
+        <h1>Apex Timing</h1>
+        <p>Open de live timing direct vanuit de webapp.</p>
+      </div>
+      <button id="readBtn">Nu uitlezen</button>
+    </div>
+
+    <div class="url-row">
+      <input
+        id="url"
+        type="url"
+        value="https://live.apex-timing.com/kartbaanoldenzaal/"
+        placeholder="https://live.apex-timing.com/..."
+      >
+      <button id="startBtn">Start live lezen</button>
+    </div>
+
+    <div class="settings">
+      <label>
+        Automatisch lezen
+        <select id="interval">
+          <option value="0">Uit</option>
+          <option value="5000">Elke 5 sec</option>
+          <option value="10000" selected>Elke 10 sec</option>
+          <option value="30000">Elke 30 sec</option>
+        </select>
+      </label>
+
+      <button id="clearBtn" class="danger">Alles wissen</button>
+    </div>
+
+    <p id="message" class="message">Klaar.</p>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="live">LIVE</button>
+    <button class="tab" data-tab="ranking">KART RANKING</button>
+    <button class="tab" data-tab="heats">HEATS</button>
+  </nav>
+
+  <section id="live" class="panel">
+    <div class="info-bar">
+      <span id="session">Sessie: —</span>
+      <span id="phase">Fase: —</span>
+      <span id="updated">—</span>
+    </div>
+
+    <div class="table-head">
+      <span>Kart</span>
+      <span>Naam</span>
+      <span>Beste zichtbare tijd</span>
+      <span>Bron</span>
+    </div>
+
+    <div id="liveTable" class="rows"></div>
+  </section>
+
+  <section id="ranking" class="panel hidden">
+    <div class="ranking-info">
+      <h2>Kart Ranking</h2>
+      <p>
+        Per heat wordt de beste zichtbare tijd opgeslagen.
+        De ranking gebruikt <b>70% gemiddelde + 30% beste tijd</b>.
+        Lager is beter.
+      </p>
+    </div>
+
+    <div class="table-head ranking-head">
+      <span>#</span>
+      <span>Kart</span>
+      <span>Gemiddeld</span>
+      <span>Beste</span>
+      <span>Heats</span>
+      <span>Score</span>
+      <span></span>
+    </div>
+
+    <div id="rankingTable" class="rows"></div>
+  </section>
+
+  <section id="heats" class="panel hidden">
+    <h2>Opgeslagen heats</h2>
+    <p class="muted">
+      Een heat wordt opgeslagen zodra een nieuwe sessie/fase wordt herkend.
+    </p>
+    <div id="heatTable"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
